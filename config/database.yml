@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: ROR_Org_production
-  username: ROR_Org
+  username: ubuntu
   password: <%= ENV['ROR_ORG_DATABASE_PASSWORD'] %>
