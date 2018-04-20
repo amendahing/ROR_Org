@@ -1,0 +1,27 @@
+<a href="/groups">Dashboard</a>
+<a href="/sessions/:id" data-method="delete"> Logout</a>
+<br>
+<br>
+<h3 style="display: inline"><%=@org.name%> - </h3>
+<% if @org.user_ids.include?(@user.id) %>
+<a href="/groups/leave/<%= @org.id %>"> Leave Org</a>
+<% else %>
+<a href="/groups/join/<%= @org.id %>">Join Org</a>
+<% end %>
+
+<p>Description: <%=@org.desc%></p>
+
+<p>Created by:
+    <% if @org.user.id == @user.id %>
+        YOU
+    <% else %>
+    <%=@org.user.fname %> <%=@org.user.lname %>
+    <%end%>
+
+</p>
+<br>
+<p style="font-weight: bold">Members:</p>
+
+<% @members.each do |member|%>
+    <p style="margin-left: 20px"> <%= member.fname%> <%= member.lname%> </p>
+<%end%>

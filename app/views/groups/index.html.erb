@@ -1,0 +1,47 @@
+<h1>Hello <%=@user.fname%> <%=@user.lname%></h1>
+
+<button><a href="/sessions/:id" data-method="delete"> Logout</a></button>
+
+<h3>Here are the organizations you may join:</h3>
+
+
+<div id="outer" style="display: inline-block;  vertical-align: top; width: 40%">
+<% @orgs.each do |org| %>
+    <div class="detail" style="margin-left: 20px; border-bottom: black 1px solid; display: block">
+
+        <h4>
+            <a href="groups/<%=org.id%>"> <%= org.name %> </a>
+            <%if @user.id == org.user.id %>
+            - <a href="groups/<%= org.id %>" data-method="delete">Delete Group</a>
+            <%end%>
+        </h4>
+
+
+        <p>Members: <%= org.users.count %></p>
+        <p><%= org.desc %></p>
+    </div>
+<% end %>
+</div>
+
+
+
+<div id="new-org" style="display: inline-block; width: 35%; vertical-align: top; border: black solid 1px; margin-left: 80px; padding: 12px">
+    <h4>Create a new organization:</h4>
+
+    <% if flash[:errors] %>
+        <% flash[:errors].each do |e| %>
+            <p class="error"><%= e %></p>
+        <% end %>
+    <% end %>
+
+    <form action="/groups" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        Org Name:<input type="text" name="name">
+        <br><br>
+        Description: <input type="text" name="desc">
+        <br><br>
+        <input type='submit' value='Create'>
+    </form>
+
+</div>
